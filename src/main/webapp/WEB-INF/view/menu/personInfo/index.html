@@ -1,0 +1,57 @@
+<div>
+    <p>用户名: <input readonly value="#(username)" style="
+    border-right-width: 2px;
+    padding-right: ‒1;
+    padding-right: 0px;
+    margin-left: 14px;
+" /></p>
+    <p>学号: <input readonly value="#(stuid)" style="
+        border-right-width: 2px;
+        padding-right: ‒1;
+        padding-right: 0px;
+        margin-left: 28px;
+    " /></p>
+    <p>姓名: <input readonly value="#(stuname)" style="
+        border-right-width: 2px;
+        padding-right: ‒1;
+        padding-right: 0px;
+        margin-left: 28px;
+    " /></p>
+    <p>性别: <input readonly value="#(stusex)" style="
+        border-right-width: 2px;
+        padding-right: ‒1;
+        padding-right: 0px;
+        margin-left: 28px;
+    " /></p>
+    <p>电子邮箱: <input id="email" value="#(email)" /></p>
+    <p>手机号码: <input id="phoneNum" value="#(phone)" /></p>
+    <p>出生日期: <input id="birthDay" class="showDate" value="#(birthday)" /></p>
+
+    <p><button type="button" class="btn btn-success" onclick="changeinfo()">
+            <i class="fa fa-save"></i>
+            修改</button></p>
+</div>
+<script>
+  laydate.render({
+                    elem: '#birthDay',
+                    type: "date"
+                });
+    function changeinfo() {
+        var email = $("#email").val();
+        var phoneNum = $("#phoneNum").val();
+        var birthDay = $("#birthDay").val();
+        $.post("/menu/personinfo/saveNewInfo", {
+            email: email,
+            phoneNum: phoneNum,
+            birthDay: birthDay
+        }, function (ret) {
+            if (ret.status == 1) {
+                layer.alert('信息修改成功，请刷新后查看是否更新成功', {
+                    skin: 'layui-layer-molv' //样式类名
+                    , closeBtn: 0
+                    , shift: 4 //动画类型
+                });
+            }
+        });
+    }
+</script>

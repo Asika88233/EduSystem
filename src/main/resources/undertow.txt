@@ -1,0 +1,5 @@
+undertow.devMode=true
+undertow.port=802
+undertow.host=0.0.0.0
+undertow.resourcePath = src/main/webapp, classpath:static
+

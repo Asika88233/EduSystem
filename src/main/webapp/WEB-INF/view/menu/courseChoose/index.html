@@ -1,0 +1,76 @@
+<div>
+	<h2>可选课程</h2>
+	<div>
+		<table id="example">
+			<thead>
+				<tr>
+					<th>课程编号</th>
+					<th>课程名称</th>
+					<th>任课教师</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+		</table>
+	</div>
+</div>
+<div>
+		<h2>已选课程</h2>
+		<div>
+			<table id="example2">
+				<thead>
+					<tr>
+						<th>课程编号</th>
+						<th>课程名称</th>
+						<th>任课教师</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+			</table>
+		</div>
+	</div>
+<script>
+	$(document).ready(function () {
+		var table = $('#example').DataTable({
+			ajax: {
+				url: "/menu/coursechoose/getCourseNotChoosed",
+				type: "GET",
+				"dataType": "json",
+			},
+			"columnDefs": [{
+				"targets": 3,
+				"render": function (data, type, row) {
+					var id = '"' + row.courseId + '"';
+					var html = "";
+					html += "<a href='javascript:void(0);'Onclick=selectCourse(" + id + ")>选课</a>"
+					return html;
+				}
+			}],
+			"columns": [
+				{  "data": "courseId" },
+				{  "data": "courseName" },
+				{  "data": "courseTeacher" },
+			]
+		});
+		var table = $('#example2').DataTable({
+			ajax: {
+				url: "/menu/coursechoose/getCourseChoosed",
+				type: "GET",
+				"dataType": "json",
+			},
+			"columnDefs": [{
+				"targets": 3,
+				"render": function (data, type, row) {
+					var id = '"' + row.courseId + '"';
+					var html = "";
+					html += "<a href='javascript:void(0);'Onclick=cancelCourse(" + id + ")>退课</a>"
+					return html;
+				}
+			}],
+			"columns": [
+				{  "data": "courseId" },
+				{  "data": "courseName" },
+				{  "data": "courseTeacher" },
+			]
+		});
+	});
+</script>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menus>
+	<menu id="accountman" name="账户管理" icon="fa fa-user">
+		<submenu id="changepass" name="修改密码" icon="fa fa-lock"/>
+		<submenu id="personinfo" name="个人信息" icon="fa fa-star"/>
+	</menu>
+		<menu id="coursemanange" name="课程管理" icon="fa ion-ios-book">
+		<submenu id="coursechoose" name="我要选课" icon="fa ion-android-bulb"/>
+	</menu>
+</menus>

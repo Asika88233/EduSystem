@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title> - 四川大学锦城学院教务系统</title>
+    <link rel="stylesheet" href="adminlte/bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="adminlte/font-awesome/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="adminlte/Ionicons/css/ionicons.min.css">
+    <link rel="stylesheet" href="adminlte/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="adminlte/css/blue.css">
+    <!-- jQuery 3 -->
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <!-- Bootstrap 3.3.7 -->
+    <script src="adminlte/bootstrap/js/bootstrap.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="adminlte/js/adminlte.min.js"></script>
+    <script src="adminlte/js/fastclick.js"></script>
+    <script src="adminlte/js/app.min.js"></script>
+    <script src="adminlte/js/icheck.min.js"></script>
+    <script type="text/javascript" src="js/layer-v3.1.1/layer/layer.js"></script>
+    <script type="text/javascript" src="js/jquery-cookie/jquery.cookie.js"></script>
+    <link href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap-theme.min.css"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+
+    </script>
+</head>
+
+<body class="hold-transition login-page" style="background-image: url('/static/img/bg.jpg'); background-size:100%">
+    <div class="login-box">
+        <div class="login-logo" style="color:rgb(26, 11, 238)">
+            教务系统
+        </div>
+        <!-- /.login-logo -->
+        <div class="login-box-body">
+            <p class="login-box-msg">请输入用户名、密码登录</p>
+            <div class="form-group has-feedback">
+                <input type="text" id="username" class="form-control" placeholder="用户名">
+                <span class="glyphicon glyphicon-user form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+                <input type="password" id="password" class="form-control" placeholder="密码">
+                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+            </div>
+            <div class="row">
+                <!-- /.col -->
+                <div class="col-xs-12">
+                    <button type="button" class="btn btn-primary btn-block btn-flat" onclick="loginSubmit()">登录</button>
+                </div>
+                <!-- /.col -->
+            </div>
+        </div>
+        <!-- /.login-box-body -->
+    </div>
+    <!-- /.login-box -->
+    <div class="footer" style="color:white;text-align:center">
+        <div>Copyright © 2019 .All Rights Reserved. 四川大学锦城学院 版权所有</div>
+    </div>
+</body>
+<script>
+    function loginSubmit(){
+        //页面的数据登录者姓名和密码
+        var username=$("input#username").val();
+        var password=$("input#password").val();
+        if(username==""){
+            layer.tips('用户名不能为空',"#username",{
+                tips:[2,'#ff0000']});
+            $("input#username").focus();
+            return;
+        }
+        if(password==""){
+            layer.tips('密码不能为空','#password',{
+                tips:[2,'#ff0000']
+            });
+            $("input#password").focus();	
+            return;
+        }
+        //当密码和用户名不为空的时候使用Ajax进行用户信息登录验证
+        var strJSON ={"username":username,"password":password};
+        $.ajax({
+            url:"/login/login",
+            type:"POST",
+            data:strJSON,
+            success:function(obj){
+                if(obj.status==0){
+                    alert("登录成功！");
+                    //跳转到首页
+                    window.location.replace("/index");//登录成功
+                }
+                else{
+                    layer.alert('用户名或密码不正确', {
+                        skin: 'layui-layer-molv' //样式类名
+                        ,closeBtn: 0
+                        ,shift: 4 //动画类型
+                      });
+                      return;
+                }
+                return;
+            },
+            error:function(){
+                layer.alert('系统错误',{skin:'layui-layer-molv'
+                    ,closeBatn:0});
+            },
+        });
+    }
+    </script>
+</html>

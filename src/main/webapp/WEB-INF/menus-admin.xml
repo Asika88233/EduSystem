@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menus>
+	<menu id="accountman" name="账户管理" icon="fa fa-user">
+		<submenu id="changepass" name="修改密码" icon="fa fa-lock"/>
+		<submenu id="personinfo" name="个人信息" icon="fa fa-star"/>
+		<submenu id="admin" name="我是管理员" icon="fa fa-star"/>
+	</menu>
+</menus>

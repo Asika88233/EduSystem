@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <title></title>
+  <link rel="stylesheet" href="/adminlte/bootstrap/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="/adminlte/font-awesome/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="/adminlte/Ionicons/css/ionicons.min.css">
+  <link rel="stylesheet" href="/adminlte/css/AdminLTE.min.css">
+  <link rel="stylesheet" href="/adminlte/css/skins/skin-blue.css">
+  <!-- jQuery 3 -->
+  <script type="text/javascript" src="/js/jquery-3.3.1.js"></script>
+  <!-- Bootstrap 3.3.7 -->
+  <script src="/adminlte/bootstrap/js/bootstrap.min.js"></script>
+  <!-- AdminLTE App -->
+  <script src="/adminlte/js/adminlte.min.js"></script>
+  <script src="/adminlte/js/fastclick.js"></script>
+  <script src="/adminlte/js/app.min.js"></script>
+  <script src="/adminlte/js/icheck.min.js"></script>
+  <script type="text/javascript" src="/js/controller.js"></script>
+  <script type="text/javascript" src="/js/layer-v3.1.1/layer/layer.js"></script>
+  <script type="text/javascript" src="/js/jquery-cookie/jquery.cookie.js"></script>
+  <script type="text/javascript" src="/js/layDate-v5.0.9/laydate/laydate.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.15/css/jquery.dataTables.css">
+  <script type="text/javascript" src="/js/DataTables-1.10.15/media/js/jquery.dataTables.js"></script>
+  <script>
+    function logout() {
+      if (confirm("是否确认注销？")) {
+        $.ajax({
+          type: "GET",//传输方式
+          url: "/index/loginout",//action路径
+          success: function (msg) {
+            alert("注销成功！");
+            location.reload();
+          }
+        });
+      }
+    }
+  </script>
+</head>
+
+<body class="skin-blue sidebar-mini">
+  <div class="wrapper">
+    <header class="main-header">
+      <!-- Logo -->
+      <a href="javascript://" class="logo">
+        <span class="logo-lg"><b>教务系统</b></span>
+      </a>
+      <!-- Header Navbar: style can be found in header.less -->
+      <nav class="navbar navbar-static-top">
+        <!-- Sidebar toggle button-->
+        <a href="javascript://" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+          <span class="sr-only">切换导航</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </a>
+
+        <div class="navbar-custom-menu">
+          <ul class="nav navbar-nav">
+            <li><a href="javascript://" data-toggle="control-sidebar" onclick="openMenu('personinfo')">#(username)</a>
+            </li>
+            <li>
+              <a href="javascript://" title="注销" onclick="logout()" data-toggle="control-sidebar"><i
+                  class="fa fa-gears"></i><span>注销</span></a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar">
+      <!-- sidebar: style can be found in sidebar.less -->
+      <section class="sidebar">
+        <!-- sidebar menu: : style can be found in sidebar.less -->
+        <ul class="sidebar-menu">
+          <li class="treeview">
+            #for(menuJson:menuArray)
+            <a href="javascript://" menu_id="#(menuJson.id)">
+              <i class="#(menuJson.icon)"></i> <span>#(menuJson.name)</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              #set(subMenuArray =menuJson.subMenus)
+              #for(subMenu:subMenuArray)
+              <li>
+                <a href="javascript://" onclick="openMenu('#(subMenu.id)')" menu_id="#(subMenu.id)"><i
+                    class="#(subMenu.icon)"></i> #(subMenu.name)</a>
+              </li>
+              #end
+            </ul>
+            #end
+          </li>
+
+        </ul>
+      </section>
+      <!-- /.sidebar -->
+    </aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper" style="min-height: 946px;">
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+        <h1 id="menu_title">
+
+        </h1>
+      </section>
+
+      <!-- Main content -->
+      <section class="content">
+        <div class="row">
+          <div class="col-md-12">
+            <!-- /.box -->
+            <div id="main_content">
+              <h1></h1>
+            </div>
+          </div>
+          <!-- /.col-->
+        </div>
+        <!-- ./row -->
+      </section>
+      <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    <footer class="main-footer">
+      <div class="pull-right hidden-xs">
+        <b>Version</b> 2.3.7
+      </div>
+      <strong>Copyright © 2019 All rights reserved.</strong>
+    </footer>
+  </div>
+</body>
+<script>
+  $(document).ready(function () {
+    $('body').bind("click", ".showDate", function () {
+      laydate.render({
+        elem: document.getElementById("birtyDay"),
+        type: "date"
+      });
+    })
+  });
+</script>
+
+</html>

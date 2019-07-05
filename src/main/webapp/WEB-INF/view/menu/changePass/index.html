@@ -1,0 +1,50 @@
+<div>
+	<p>请输入新密码: <input type="password" id="new_pass" /></p>
+	<p>再次输入密码: <input type="password" id="new_pass2" /></p>
+	<p><button type="button" class="btn btn-success" onclick="changepass()">
+			<i class="fa fa-save"></i>
+			保存</button></p>
+</div>
+<script>
+	function changepass() {
+		var newPass = $("#new_pass").val();
+		var newPass2 = $("#new_pass2").val();
+		if (newPass == "" || newPass2 == "") {
+			alert("密码不能为空");
+			return false;
+		}
+		if (newPass != newPass2) {
+			alert("两次输入的密码不一致!");
+			return false;
+		}
+		$.post("/menu/changepass/saveNewPass", {
+			newPass: newPass
+		}, function (ret) {
+			if (ret.status == 1) {
+				layer.alert('密码修改成功，即将注销', {
+					skin: 'layui-layer-molv' //样式类名
+					, closeBtn: 0
+					, shift: 4 //动画类型
+				});
+				$.ajax({
+					type: "GET",//传输方式
+					url: "/index/loginout",//action路径
+					success: setTimeout(function (msg) {
+						location.reload();
+					},1000)
+				});
+				return false;
+				
+			} else if (ret.status == 2) {
+				layer.alert('新密码不能与原密码相同', {
+					skin: 'layui-layer-molv' //样式类名
+					, closeBtn: 0
+					, shift: 4 //动画类型
+				});
+				return false;
+			} else {
+				alert("密码修改失败");
+			}
+		});
+	}
+</script>
